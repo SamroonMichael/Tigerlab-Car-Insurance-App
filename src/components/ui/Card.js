@@ -24,12 +24,25 @@ const CardWapper = styled.div`
     font-weight: 500;
 
     h3 {
-        margin-bottom: 0.5rem;
+      margin-bottom: 0.5rem;
     }
-
   }
 
+  @media (min-width: 481px) and (max-width: 768px) {
+    max-width: 300px;
+    flex-flow: column nowrap;
+  }
 
+  @media (min-width: 320px) and (max-width: 480px) {
+    max-width: 100%;
+    flex-flow: column nowrap;
+    padding: 1rem;
+
+    .card__title,
+    .card__detials {
+      font-size: 14px;
+    }
+  }
 `;
 
 const Card = ({

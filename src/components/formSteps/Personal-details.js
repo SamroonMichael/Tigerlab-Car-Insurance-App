@@ -109,6 +109,7 @@ const PersonalDetails = () => {
       <FormWapper>
         <div className="form__inner">
           <form onSubmit={handlePersonalSubmit} noValidate>
+            
             {/* First Name Field */}
             <div className="form__input">
               <label className="input__label">First Name</label>
@@ -131,6 +132,7 @@ const PersonalDetails = () => {
                 </div>
               )}
             </div>
+           
             {/* Last Name Field */}
             <div className="form__input">
               <label className="input__label">Last Name</label>

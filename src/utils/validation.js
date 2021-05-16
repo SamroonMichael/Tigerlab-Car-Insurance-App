@@ -1,19 +1,6 @@
 const validation = (value) => {
 
   let errors = {};
-  
-  // const ageCovert = value.dob;
-  // let ageNow;
-  // Age validator
-    // const today = new Date();
-    // const birthDate = new Date(ageCovert); // create a date object directly from `dob` argument
-    // ageNow = today.getFullYear() - birthDate.getFullYear();
-    // const m = today.getMonth() - birthDate.getMonth();
-    // if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-    //   ageNow--;
-    //   return ageNow;
-    // }
-
 
   if (!value.firstName) {
     errors.firstName = 'First Name is required';

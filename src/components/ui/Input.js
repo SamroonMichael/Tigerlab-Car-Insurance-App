@@ -7,7 +7,6 @@ import { createGlobalStyle } from 'styled-components';
 /* Style for inputs */
 const GlobalStyle = createGlobalStyle`
     input[type=text], input[type=email], input[type=password], input[type=date] {
-    /* margin-right: 2rem; */
     width: 100%;
     display: block;
     height: 60px;

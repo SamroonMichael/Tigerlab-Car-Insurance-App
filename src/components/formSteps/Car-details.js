@@ -108,7 +108,7 @@ const CarDetails = () => {
     });
   };
 
-
+// Calculate age from dob value provided on previous step
   useEffect(() => {
     const calcAge = () => {
       const today = new Date();
@@ -162,6 +162,7 @@ const CarDetails = () => {
       <FormWapper>
         <div className="form__inner">
           <form onSubmit={handleCarSubmit} noValidate autoComplete="off">
+            
             {/* Plate Number Field */}
             <div className="form__input">
               <label className="input__label">Plate Number</label>
@@ -184,6 +185,7 @@ const CarDetails = () => {
                 </div>
               )}
             </div>
+            
             {/* Claim Field */}
             <div className="form__input">
               <label className="input__label">
@@ -194,6 +196,7 @@ const CarDetails = () => {
                   <input
                     type="radio"
                     value="yes"
+                    name="clamis"
                     onChange={(e) =>
                       setformData({
                         ...formData,
@@ -227,7 +230,6 @@ const CarDetails = () => {
                 </div>
                 <span className="radio__text">No</span>
               </div>
-
               {errors.fiveYearClaims && (
                 <div className="error__wapper">
                   <i>
@@ -237,12 +239,14 @@ const CarDetails = () => {
                 </div>
               )}
             </div>
+           
             {/* Driving License Field */}
             <div className="form__input">
               <label className="input__label">
                 How many Years do you have Driving License?
               </label>
               <select
+                name="drivnig license"
                 value={formData.drivingLicenseYears}
                 onChange={(e) =>
                   setformData({
@@ -271,10 +275,12 @@ const CarDetails = () => {
                 </div>
               )}
             </div>
+           
             {/* Car Make Field */}
             <div className="form__input">
               <label className="input__label">Car Make</label>
               <select
+                name="car make"
                 value={formData.carMake}
                 onChange={(e) =>
                   setformData({ ...formData, carMake: e.target.value })
@@ -298,10 +304,12 @@ const CarDetails = () => {
                 </div>
               )}
             </div>
+           
             {/* Car Model Field */}
             <div className="form__input">
               <label className="input__label">Car Model</label>
               <select
+                name="car model"
                 value={formData.carModel}
                 onChange={(e) =>
                   setformData({ ...formData, carModel: e.target.value })
@@ -324,11 +332,13 @@ const CarDetails = () => {
                 </div>
               )}
             </div>
+           
             {/* Car Manufacture Field */}
             <div className="form__input">
               <label className="input__label">Car Manufacture Date</label>
               <Input
                 type="text"
+                name="car manufacture"
                 value={formData.carManufactureDate}
                 onChange={(e) =>
                   setformData({

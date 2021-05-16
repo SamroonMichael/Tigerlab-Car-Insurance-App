@@ -39,6 +39,10 @@ const CompletedWapper = styled.div`
     margin-top: 2rem;
     width: 30%;
     font-size: 1.2rem;
+
+    @media screen and (max-width: 920px) {
+      width: 55%;
+    }
   }
 `;
 

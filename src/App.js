@@ -7,7 +7,6 @@ import PersonalDetails from './components/formSteps/Personal-details';
 import CarDetails from './components/formSteps/Car-details';
 import Completed from './components/Completed';
 
-
 const App = () => {
 
   return (

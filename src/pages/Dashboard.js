@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import firebase from '../firebase';
-import Card from '../components/Card';
+import Card from '../components/ui/Card';
 import PropTypes from 'prop-types';
 import { FaPen } from 'react-icons/fa';
 import { Link } from 'react-router-dom'
@@ -13,7 +13,6 @@ const ContentWapper = styled.div`
   flex-flow: column nowrap;
 
   .add__insurance {
-
     width: 100%;
     border-bottom: 1px #cac7c7 solid;
 
@@ -53,11 +52,35 @@ const ContentWapper = styled.div`
     flex-flow: row wrap;
     justify-content: space-evenly;
     margin-right: 3rem;
+
+    .loader {
+      height: 200px;
+      display: flex;
+      flex-flow: column wrap;
+      justify-content: center;
+      align-items: center;
+      align-content: center;
+    }
+  }
+
+  @media (min-width: 481px) and (max-width: 768px) {
+    .card__inner {
+      margin-right: 0;
+    }
+  }
+
+  @media (min-width: 320px) and (max-width: 480px) {
+    .card__inner {
+      margin-right: 0;
+      text-align: center;
+    }
   }
 `;
 
 const Dashboard = () => {
   const [carData, setCarData] = useState([]);
+  // Loading data from firestore
+  const [isLoading, setIsLoading] = useState(false);
 
   // Fetch car insurance form data from firebase
   const fetchData = () => {
@@ -66,18 +89,19 @@ const Dashboard = () => {
     response
       .get()
       .then((item) => {
-          const items = item.docs.map((doc) => doc.data());
-        setCarData(items)
+        setIsLoading(true);
+        const items = item.docs.map((doc) => doc.data());
+        setCarData(items);
       })
       .catch((error) => {
         console.log(error.message);
       });
+    setIsLoading(false);
   };
 
   useEffect(() => {
     fetchData();
   }, []);
-
 
   return (
     <ContentWapper>
@@ -90,22 +114,26 @@ const Dashboard = () => {
         </div>
       </div>
       <div className="card__inner">
-        {carData.map((list, key) => {
-          return (
-            <Card
-              key={key}
-              firstName={list.firstName}
-              lastName={list.lastName}
-              dob={list.dob}
-              email={list.email}
-              plateNumber={list.plateNumber}
-              drivingLicenseYears={list.drivingLicenseYears}
-              carMake={list.carMake}
-              carModel={list.carModel}
-              carManufactureDate={list.carManufactureDate}
-            />
-          );
-        })}
+        {!isLoading ? (
+          <h1 className="loader">Data Loading...</h1>
+        ) : (
+          carData.map((list, key) => {
+            return (
+                <Card
+                  key={key}
+                  firstName={list.firstName}
+                  lastName={list.lastName}
+                  dob={list.dob}
+                  email={list.email}
+                  plateNumber={list.plateNumber}
+                  drivingLicenseYears={list.drivingLicenseYears}
+                  carMake={list.carMake}
+                  carModel={list.carModel}
+                  carManufactureDate={list.carManufactureDate}
+                />
+            );
+          })
+        )}
       </div>
     </ContentWapper>
   );
