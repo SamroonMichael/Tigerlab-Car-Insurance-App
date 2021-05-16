@@ -6,7 +6,7 @@ import styled from 'styled-components';
 const CardWapper = styled.div`
   max-width: 400px;
   width: 100%;
-  height: 250px;
+  height: 300px;
   box-shadow: 0 30px 60px 0 rgb(90 116 148 / 20%);
   border-radius: 10px;
   padding: 2.2rem;
