@@ -1,0 +1,86 @@
+/* Form Style */
+.form__inner {
+  background: #fff;
+  box-shadow: 0 30px 60px 0 rgb(90 116 148 / 40%);
+  border-radius: 10px;
+  padding: 2.2rem;
+}
+
+.form__input {
+  margin-top: 0.6rem;
+}
+
+.input__label {
+  font-size: 14px;
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #1a3b5d;
+  width: 100%;
+  display: block;
+  margin-left: 0.4rem;
+  user-select: none;
+}
+
+.form__btn__wapper {
+  margin-top: 20px;
+  display: flex;
+}
+
+/* Button for personal detail page */
+.form__btn-personal {
+  width: 40%;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+/* Button for car detail page */
+.form__button-back {
+  margin-right: 0.6rem;
+}
+
+/* Side Bar */
+.side__bar__title {
+  font-size: 3.7rem;
+  font-weight: 900;
+  letter-spacing: -3px;
+}
+
+.side__bar__Adcopy {
+  font-size: 1.2rem;
+  margin-left: 0.2rem;
+}
+
+/* Media Queries */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .side__bar__Adcopy {
+    padding: 1rem;
+    margin-left: 0;
+  }
+}
+
+
+@media (min-width: 481px) and (max-width: 767px) {
+  .side__bar__title {
+      font-size: 2.5rem;
+      letter-spacing: 0;
+      text-align: center;
+    }
+
+    .side__bar__Adcopy {
+      font-size: 16px;
+      padding: 0.7rem;
+    }
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+    .side__bar__title {
+      font-size: 2rem;
+      letter-spacing: 0;
+    }
+
+    .side__bar__Adcopy {
+      font-size: 12px;
+      padding: 0.5rem;
+    }
+}
+
