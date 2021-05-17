@@ -65,10 +65,10 @@ const Card = ({
         </div>
         <div className="card__detials">
           <h3>Car Details</h3>
-          <p>Car Make: {carMake}</p>
-          <p>Car Model: {carModel}</p>
-          <p>Plate Number: {plateNumber}</p>
-          <p>Car Manufacture Date: {carManufactureDate}</p>
+          <p>Make: {carMake}</p>
+          <p>Model: {carModel}</p>
+          <p>Plate Num: {plateNumber}</p>
+          <p>Manufacture: {carManufactureDate}</p>
         </div>
       </CardWapper>
     </>

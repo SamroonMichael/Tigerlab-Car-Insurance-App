@@ -10,7 +10,7 @@ import { IoIosWarning } from 'react-icons/io';
 import firebase from '../../firebase';
 
 /* form-styles */
-import './form.css'
+import './form.css';
 
 /* style-compontent */
 import styled from 'styled-components';
@@ -70,17 +70,16 @@ const CarDetails = () => {
   const handleCarSubmit = (e) => {
     e.preventDefault();
     setErrors(validation(formData));
+    checkFormValues();
     if (ageCheck < 18) {
-      alert(
-        'Eligibility age above 18! Please check your age again'
-      );
+      alert('Eligibility age above 18! Please check your age again');
       return;
     }
-    setIsCompeleted(true);
     setFormSubmissionData((formSubmissionData) => [
       ...formSubmissionData,
       formData,
     ]);
+
     // Send data to fireStore
     const db = firebase.firestore();
     db.collection('carInsurance')
@@ -93,8 +92,8 @@ const CarDetails = () => {
         console.log(error.message);
       });
 
-    // Clear all form fields
-    setformData({
+    // Clear all form fields if completed is true
+    {isCompeleted ? setformData({
       firstName: '',
       lastName: '',
       dob: '',
@@ -105,10 +104,42 @@ const CarDetails = () => {
       carMake: '',
       carModel: '',
       carManufactureDate: '',
-    });
+    }) : null}
   };
 
-// Calculate age from dob value provided on previous step
+  const checkFormValues = () => {
+    //  Destructure car details fields data
+    const {
+      plateNumber,
+      carMake,
+      carModel,
+      carManufactureDate,
+    } = formData;
+
+    // Check if all fields has vaule
+    if (plateNumber === '') {
+      return;
+    } else if (
+      !formData.fiveYearClaims === 'yes' ||
+      !formData.fiveYearClaims === 'no' ||
+      formData.fiveYearClaims === ''
+    ) {
+      return;
+    } else if (formData.drivingLicenseYears === '') {
+      return;
+    } else if (carMake === '') {
+      return;
+    } else if (carModel === '') {
+      return;
+    } else if (carManufactureDate === '') {
+      return;
+    } else {
+      // Set true for redirecting to completed page
+      setIsCompeleted(true);
+    }
+  };
+
+  // Calculate age from dob value provided on previous step
   useEffect(() => {
     const calcAge = () => {
       const today = new Date();
@@ -162,7 +193,6 @@ const CarDetails = () => {
       <FormWapper>
         <div className="form__inner">
           <form onSubmit={handleCarSubmit} noValidate autoComplete="off">
-            
             {/* Plate Number Field */}
             <div className="form__input">
               <label className="input__label">Plate Number</label>
@@ -185,7 +215,7 @@ const CarDetails = () => {
                 </div>
               )}
             </div>
-            
+
             {/* Claim Field */}
             <div className="form__input">
               <label className="input__label">
@@ -207,6 +237,7 @@ const CarDetails = () => {
                     className={`radio__input ${
                       errors.fiveYearClaims ? 'danger__active' : ''
                     }`}
+                    required
                   />
                 </div>
                 <span className="radio__text">Yes</span>
@@ -226,6 +257,7 @@ const CarDetails = () => {
                     className={`radio__input ${
                       errors.fiveYearClaims ? 'danger__active' : ''
                     }`}
+                    required
                   />
                 </div>
                 <span className="radio__text">No</span>
@@ -239,7 +271,7 @@ const CarDetails = () => {
                 </div>
               )}
             </div>
-           
+
             {/* Driving License Field */}
             <div className="form__input">
               <label className="input__label">
@@ -257,6 +289,7 @@ const CarDetails = () => {
                 className={`select ${
                   errors.drivingLicenseYears ? 'danger__active' : ''
                 }`}
+                required
               >
                 <option value="">Select</option>
                 <option value={'0'}>0</option>
@@ -275,7 +308,7 @@ const CarDetails = () => {
                 </div>
               )}
             </div>
-           
+
             {/* Car Make Field */}
             <div className="form__input">
               <label className="input__label">Car Make</label>
@@ -304,7 +337,7 @@ const CarDetails = () => {
                 </div>
               )}
             </div>
-           
+
             {/* Car Model Field */}
             <div className="form__input">
               <label className="input__label">Car Model</label>
@@ -332,7 +365,7 @@ const CarDetails = () => {
                 </div>
               )}
             </div>
-           
+
             {/* Car Manufacture Field */}
             <div className="form__input">
               <label className="input__label">Car Manufacture Date</label>

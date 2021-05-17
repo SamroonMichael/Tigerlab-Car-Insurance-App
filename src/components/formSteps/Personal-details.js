@@ -74,7 +74,7 @@ const PersonalDetails = () => {
 
   const checkFormValues = () => {
     //  Destructure personal fields data
-    const { firstName, lastName, dob, underAge, email } = formData;
+    const { firstName, lastName, dob, email } = formData;
 
     // Check if all fields has vaule
     if (firstName === '') {
@@ -82,8 +82,6 @@ const PersonalDetails = () => {
     } else if (lastName === '') {
       return;
     } else if (dob === '') {
-      return;
-    } else if (underAge < 18 && underAge > 100) {
       return;
     } else if (email === '') {
       return;
