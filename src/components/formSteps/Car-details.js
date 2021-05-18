@@ -66,55 +66,59 @@ const CarDetails = () => {
   // Redirect to Compelet page
   const [isCompeleted, setIsCompeleted] = useState(false);
 
+  // Init array to loop select option 
+  const [carModelOption, setCarModelOption] = useState([]);
+
   // Handle full data form submit
   const handleCarSubmit = (e) => {
     e.preventDefault();
     setErrors(validation(formData));
     checkFormValues();
-    if (ageCheck < 18) {
-      alert('Eligibility age above 18! Please check your age again');
+    if (ageCheck < 18 || ageCheck > 100) {
+      alert(
+        'Eligibility age above 18 less then 100! Please check your age again'
+      );
       return;
+    } else {
+      setFormSubmissionData((formSubmissionData) => [
+        ...formSubmissionData,
+        formData,
+      ]);
+      // // Send data to fireStore
+      const db = firebase.firestore();
+      db.collection('carInsurance')
+        .doc()
+        .set(formData)
+        .then(() => {
+          console.log('Data has been saved');
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
     }
-    setFormSubmissionData((formSubmissionData) => [
-      ...formSubmissionData,
-      formData,
-    ]);
-
-    // Send data to fireStore
-    const db = firebase.firestore();
-    db.collection('carInsurance')
-      .doc()
-      .set(formData)
-      .then(() => {
-        console.log('Data has been saved');
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
 
     // Clear all form fields if completed is true
-    {isCompeleted ? setformData({
-      firstName: '',
-      lastName: '',
-      dob: '',
-      email: '',
-      plateNumber: '',
-      fiveYearClaims: '',
-      drivingLicenseYears: '',
-      carMake: '',
-      carModel: '',
-      carManufactureDate: '',
-    }) : null}
+    {
+      isCompeleted
+        ? setformData({
+            firstName: '',
+            lastName: '',
+            dob: '',
+            email: '',
+            plateNumber: '',
+            fiveYearClaims: '',
+            drivingLicenseYears: '',
+            carMake: '',
+            carModel: '',
+            carManufactureDate: '',
+          })
+        : null;
+    }
   };
 
   const checkFormValues = () => {
     //  Destructure car details fields data
-    const {
-      plateNumber,
-      carMake,
-      carModel,
-      carManufactureDate,
-    } = formData;
+    const { plateNumber, carMake, carModel, carManufactureDate } = formData;
 
     // Check if all fields has vaule
     if (plateNumber === '') {
@@ -149,32 +153,27 @@ const CarDetails = () => {
     };
 
     calcAge();
+    
   }, []);
 
-  /* Init array to loop select option */
-  let option = [];
-  /* Condition for car model based on car make */
-  if (formData.carMake === 'audi') {
-    option.push('A5');
-    option.push('R8');
-  } else if (formData.carMake === 'bmw') {
-    option.push('M8');
-    option.push('X5');
-  } else if (formData.carMake === 'landRover') {
-    option.push('Defender');
-    option.push('Range Rover');
-  } else if (formData.carMake === 'mercedesBenz') {
-    option.push('Amg');
-    option.push('S');
-  } else if (formData.carMake === 'perodua') {
-    option.push('Bezza');
-    option.push('Myvi');
-  } else if (formData.carMake === 'toyota') {
-    option.push('Camry');
-    option.push('Vios');
-  } else {
-    console.log('Select Car Make');
-  }
+  useEffect(() => {
+    /* Condition for car model based on car make */
+    if (formData.carMake === 'audi') {
+      setCarModelOption(['A5', 'R8']);
+    } else if (formData.carMake === 'bmw') {
+      setCarModelOption(['M8', 'X5']);
+    } else if (formData.carMake === 'landRover') {
+      setCarModelOption(['Defender', 'Range Rover']);
+    } else if (formData.carMake === 'mercedesBenz') {
+      setCarModelOption(['AMG', 'S']);
+    } else if (formData.carMake === 'perodua') {
+      setCarModelOption(['Bezza', 'Myvi']);
+    } else if (formData.carMake === 'toyota') {
+      setCarModelOption(['Camry', 'Vios']);
+    } else {
+      return;
+    }
+  }, [formData]);
 
   // If no error redirect submit successful
   if (isCompeleted === true) {
@@ -350,7 +349,7 @@ const CarDetails = () => {
                 className={`select ${errors.carModel ? 'danger__active' : ''}`}
               >
                 <option value="">Select Car Make</option>
-                {option.map((model) => (
+                {carModelOption.map((model) => (
                   <option key={model} value={model}>
                     {model}
                   </option>

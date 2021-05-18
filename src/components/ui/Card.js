@@ -54,6 +54,9 @@ const Card = ({
     carModel,
     carManufactureDate,
 }) => {
+
+  
+
   return (
     <>
       <CardWapper>
@@ -67,7 +70,7 @@ const Card = ({
           <h3>Car Details</h3>
           <p>Make: {carMake}</p>
           <p>Model: {carModel}</p>
-          <p>Plate Num: {plateNumber}</p>
+          <p>Plate Num: {plateNumber === 'hi' ? null : plateNumber}</p>
           <p>Manufacture: {carManufactureDate}</p>
         </div>
       </CardWapper>

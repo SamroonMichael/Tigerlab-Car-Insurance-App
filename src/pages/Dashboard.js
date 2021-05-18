@@ -90,8 +90,9 @@ const Dashboard = () => {
       .get()
       .then((item) => {
         setIsLoading(true);
-        const items = item.docs.map((doc) => doc.data());
+        const items = item.docs.map((doc) =>  doc.data())
         setCarData(items);
+        
       })
       .catch((error) => {
         console.log(error.message);
@@ -119,18 +120,18 @@ const Dashboard = () => {
         ) : (
           carData.map((list, key) => {
             return (
-                <Card
-                  key={key}
-                  firstName={list.firstName}
-                  lastName={list.lastName}
-                  dob={list.dob}
-                  email={list.email}
-                  plateNumber={list.plateNumber}
-                  drivingLicenseYears={list.drivingLicenseYears}
-                  carMake={list.carMake}
-                  carModel={list.carModel}
-                  carManufactureDate={list.carManufactureDate}
-                />
+              <Card
+                key={key}
+                firstName={list.firstName}
+                lastName={list.lastName}
+                dob={list.dob}
+                email={list.email}
+                plateNumber={list.plateNumber}
+                drivingLicenseYears={list.drivingLicenseYears}
+                carMake={list.carMake}
+                carModel={list.carModel}
+                carManufactureDate={list.carManufactureDate}
+              />
             );
           })
         )}
